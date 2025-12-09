@@ -1,0 +1,70 @@
+<div class="create-post-container">
+  <div class="create-post-card">
+    <h2>Создать новый пост</h2>
+    
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Заголовок</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+          placeholder="Введите заголовок поста"
+          [class.is-invalid]="postForm.get('title')?.invalid && postForm.get('title')?.touched">
+        <div class="invalid-feedback" *ngIf="postForm.get('title')?.errors?.['required']">
+          Заголовок обязателен
+        </div>
+        <div class="invalid-feedback" *ngIf="postForm.get('title')?.errors?.['minlength']">
+          Минимум 5 символов
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="excerpt">Краткое описание</label>
+        <textarea
+          id="excerpt"
+          formControlName="excerpt"
+          class="form-control"
+          rows="3"
+          placeholder="Краткое описание поста"
+          [class.is-invalid]="postForm.get('excerpt')?.invalid && postForm.get('excerpt')?.touched"></textarea>
+        <div class="invalid-feedback" *ngIf="postForm.get('excerpt')?.errors?.['required']">
+          Краткое описание обязательно
+        </div>
+        <div class="invalid-feedback" *ngIf="postForm.get('excerpt')?.errors?.['minlength']">
+          Минимум 10 символов
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="content">Содержание</label>
+        <textarea
+          id="content"
+          formControlName="content"
+          class="form-control"
+          rows="10"
+          placeholder="Полное содержание поста"
+          [class.is-invalid]="postForm.get('content')?.invalid && postForm.get('content')?.touched"></textarea>
+        <div class="invalid-feedback" *ngIf="postForm.get('content')?.errors?.['required']">
+          Содержание обязательно
+        </div>
+        <div class="invalid-feedback" *ngIf="postForm.get('content')?.errors?.['minlength']">
+          Минимум 50 символов
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="onCancel()" class="btn btn-secondary">
+          Отмена
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="postForm.invalid">
+          Опубликовать
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

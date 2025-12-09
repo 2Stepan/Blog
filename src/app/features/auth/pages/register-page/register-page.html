@@ -1,0 +1,118 @@
+<p>register-page works!</p>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Регистрация</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Имя пользователя</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          placeholder="Введите имя пользователя"
+          [class.is-invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+        <div class="invalid-feedback" *ngIf="registerForm.get('username')?.errors?.['required']">
+          Имя пользователя обязательно
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('username')?.errors?.['minlength']">
+          Минимум 3 символа
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Введите ваш email"
+          [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['required']">
+          Email обязателен
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['email']">
+          Введите корректный email
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="firstName">Имя</label>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-control"
+              placeholder="Ваше имя"
+              [class.is-invalid]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="lastName">Фамилия</label>
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              class="form-control"
+              placeholder="Ваша фамилия"
+              [class.is-invalid]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Введите пароль"
+          [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.errors?.['required']">
+          Пароль обязателен
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.errors?.['minlength']">
+          Минимум 6 символов
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Подтвердите пароль</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          class="form-control"
+          placeholder="Подтвердите пароль"
+          [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+        <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+          Подтверждение пароля обязательно
+        </div>
+        <div class="invalid-feedback" *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+          Пароли не совпадают
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="registerForm.invalid || isLoading">
+        {{ isLoading ? 'Регистрация...' : 'Зарегистрироваться' }}
+      </button>
+    </form>
+
+    <div class="auth-link">
+      Уже есть аккаунт? <a routerLink="/auth/login">Войдите</a>
+    </div>
+  </div>
+</div>

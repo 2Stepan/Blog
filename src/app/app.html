@@ -1,0 +1,28 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a routerLink="/blog" class="brand-link">
+        <h1>Blog Platform</h1>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a routerLink="/blog" routerLinkActive="active">Блог</a>
+      <ng-container *ngIf="currentUser; else authLinks">
+        <span class="user-greeting">Добро пожаловать, {{currentUser.firstName}}!</span>
+        <button (click)="logout()" class="btn-logout">Выйти</button>
+      </ng-container>
+      <ng-template #authLinks>
+        <a routerLink="/auth/login" routerLinkActive="active">Войти</a>
+        <a routerLink="/auth/register" routerLinkActive="active">Регистрация</a>
+      </ng-template>
+    </div>
+  </nav>
+</header>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2024 Blog Platform. Все права защищены.</p>
+</footer>

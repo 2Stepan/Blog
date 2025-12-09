@@ -1,0 +1,59 @@
+<div class="blog-post-container">
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Загрузка поста...</p>
+  </div>
+
+  <div *ngIf="error && !isLoading" class="error">
+    <h2>Ошибка</h2>
+    <p>{{ error }}</p>
+    <button (click)="goBack()" class="btn btn-primary">Вернуться к списку</button>
+  </div>
+
+  <article *ngIf="post && !isLoading" class="blog-post">
+    <nav class="breadcrumb">
+      <a routerLink="/blog">Блог</a>
+      <span class="separator">/</span>
+      <span class="current">{{ post.title }}</span>
+    </nav>
+
+    <header class="post-header">
+      <h1 class="post-title">{{ post.title }}</h1>
+      
+      <div class="post-meta">
+        <div class="author-info">
+          <span class="author">Автор: {{ post.author }}</span>
+          <span class="publish-date">Опубликовано: {{ formatDate(post.createdAt) }}</span>
+        </div>
+        
+        <div class="post-actions">
+          <button (click)="sharePost()" class="btn btn-secondary">
+            📤 Поделиться
+          </button>
+          <button (click)="goBack()" class="btn btn-outline">
+            ← Назад
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="post-content" [innerHTML]="post.content"></div>
+
+    <footer class="post-footer">
+      <div class="tags">
+        <span class="tag">Angular</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Веб-разработка</span>
+      </div>
+    </footer>
+
+    <div class="post-navigation">
+      <button class="nav-btn prev" [disabled]="true">
+        ← Предыдущий пост
+      </button>
+      <button class="nav-btn next">
+        Следующий пост →
+      </button>
+    </div>
+  </article>
+</div>
